@@ -1,6 +1,10 @@
 function rrf = RRF(scores, k)
+% compute RRF score given a list of FR measures:
+% INPUT:
+% scores: NxK matrix of FR measures (N-number of images, K-number of FR measures), bigger score-->higher quality score
+% k: constant used in computing RRF score
+% OUTPUT:
 % rrf: rrf score for each object
-% t: rank of each object
 
 [N, K] = size(scores); % N: # object, K: # ranked list
 

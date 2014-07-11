@@ -8,31 +8,24 @@ function [s,n] = adjustScore(score, t, lambda0)
 %----------------------------------------------------------------------
 
 % score: the input score
-% t: rank of the object
+% t: rank of the object (the lower the better)
 % s: adjust the input score to obey the rank t better
 % score: the higher the better. 
-% t: the lower the better
 
 % Examples:
 % load('PATH_TO_YOUR_FR_MEASURE_FILE','gmsd','vif','fsim','fsimc','wssim');
 % scores = [vif, fsim, fsimc, wssim, -gmsd]; % the higher the better
 % rrf = RRF(scores, 60);
-% s = adjustScore(1-gmsd, -rrf, 4);
+% s = adjustScore(1-gmsd, -rrf, 4); % -rrf indicates the rank
 
 L = length(t);
 n = zeros(L,1);
 [sort_t, idx] = sort(t,'ascend');
-
+% faster implementation
 id = 1:L;
 n(idx) = (id-1)-(L-id);
 
-% for i=1:L,
-%	id = find(idx==i);
-%	n1 = id-1;
-%	n2 = L-id;
-%	n(i) = n1-n2;
-% end
-
+% % This is a slower implementation.
 %for i=1:L,
 %    n1 = length(find(t<t(i))); % images better than i
 %    n2 = length(find(t>t(i))); % images worse than i
